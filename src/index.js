@@ -15,6 +15,8 @@ bot.start((ctx) => {
   } else {
     ctx.reply("Welcome to Health Assistant Bot! Please register to continue. \n\nPlease enter your *name*:", {parse_mode: "Markdown"});
     userService.initUser(userId);
+    userService.setStep(userId, "awaiting_name"); 
+
   }
 });
 
@@ -30,6 +32,7 @@ bot.on("text", (ctx) => {
   // Ожидание имени
   if (user.step === "awaiting_name") {
     userService.setName(userId, text);
+    userService.setStep(userId, "awaiting_age");
     ctx.reply("Great! Now enter your *age*:", {parse_mode: "Markdown"});
     return;
   }
@@ -42,6 +45,7 @@ bot.on("text", (ctx) => {
       return;
     }
     userService.setAge(userId, age);
+    userService.setStep(userId, "registered");
     const updatedUser = userService.getUser(userId);
 
 

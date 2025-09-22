@@ -1,31 +1,38 @@
-//Временное хранилище
+// Временное хранилище
 const users = {};
 
-//проверяет есть ли юзер 
+// проверяет есть ли юзер 
 function getUser(userId) {
   return users[userId] || null;
 }
 
-//создать юзера
+// создать юзера
 function initUser(userId) {
   users[userId] = {
-    step: "awaiting_name"
+    step: "awaiting_name",
   };
 }
 
-//установить имя
+// установить имя
 function setName(userId, name) {
-  if (!userId[userId]) return null;
+  if (!users[userId]) return null;
   users[userId].name = name;
   users[userId].step = "awaiting_age";
   return users[userId];
 }
 
-//установить возраст
+// установить возраст
 function setAge(userId, age) {
-  if (!userId[userId]) return null;
+  if (!users[userId]) return null;
   users[userId].age = age;
-  users[userId].step;//регистрация завершена
+  users[userId].step = "registered"; // регистрация завершена
+  return users[userId];
+}
+
+// универсально поменять шаг
+function setStep(userId, step) {
+  if (!users[userId]) return null;
+  users[userId].step = step;
   return users[userId];
 }
 
@@ -34,4 +41,5 @@ module.exports = {
   initUser,
   setName,
   setAge,
+  setStep,
 };
