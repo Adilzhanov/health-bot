@@ -1,7 +1,7 @@
-// Временное хранилище
+// Временное хранилище пользователей
 const users = {};
 
-// проверяет есть ли юзер 
+// получить юзера
 function getUser(userId) {
   return users[userId] || null;
 }
@@ -25,11 +25,11 @@ function setName(userId, name) {
 function setAge(userId, age) {
   if (!users[userId]) return null;
   users[userId].age = age;
-  users[userId].step = "registered"; // регистрация завершена
+  users[userId].step = "registered";
   return users[userId];
 }
 
-// универсально поменять шаг
+// сменить шаг
 function setStep(userId, step) {
   if (!users[userId]) return null;
   users[userId].step = step;
